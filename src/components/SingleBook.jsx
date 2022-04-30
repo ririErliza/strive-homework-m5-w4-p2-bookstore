@@ -1,12 +1,13 @@
 
-import { Card } from 'react-bootstrap'
+import { Button, Card } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 const SingleBook = ({handleSelected,book,selected}) => {
 
     return (
       <>
         <Card
-          onClick={() => handleSelected(book.asin)}
+         
           style={{
             border:
               selected === book.asin
@@ -14,11 +15,15 @@ const SingleBook = ({handleSelected,book,selected}) => {
                 : 'none',
           }}
         >
-          <Card.Img variant='top' src={book.img} className='imageBook'/>
+          <Card.Img variant='top' src={book.img} className='imageBook'  onClick={() => handleSelected(book.asin)}/>
           <Card.Body>
             <Card.Title className="text-truncate" style={{ color: 'black' }}>
               {book.title}
+             
             </Card.Title>
+            <Link to={'/bookdetails/'+book.asin}>
+            <Button>see details</Button>
+            </Link>
           </Card.Body>
         </Card>
       </>
