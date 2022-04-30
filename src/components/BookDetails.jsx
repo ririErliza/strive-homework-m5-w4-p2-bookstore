@@ -5,6 +5,15 @@ import historyBooks from '../historyBooks.json'
 
 const BookDetails = () =>{
 
+// const userComment = {
+//     comment: string,
+//     rate: string,
+//     elementId: string,
+// }
+
+
+
+
 const params = useParams()
 console.log("params", params)
 
@@ -34,8 +43,9 @@ useEffect( () => {
       <Col className="text-center" md={6}>
           {book && (
               <div>
+                  <h2>{book.title} </h2>
                 <img src={book.img} style={{ height: '500px' }} alt="book-pic" />
-                <h4>{book.title} </h4>
+                
                 <p>price: {book.price}</p>
                 <p>category: {book.category}</p>
                 <p>asin: {book.asin}</p>
