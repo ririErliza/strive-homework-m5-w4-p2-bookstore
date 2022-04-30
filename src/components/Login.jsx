@@ -4,7 +4,7 @@ const Login = () =>{
 
     const loginMessage = (e) =>{
         e.preventDefault()
-        alert("Log in form")
+        alert("submit button clicked")
     }
 
 return(
