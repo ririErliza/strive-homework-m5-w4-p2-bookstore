@@ -1,8 +1,10 @@
 
 import { Button, Card } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const SingleBook = ({handleSelected,book,selected}) => {
+
+  const navigate=useNavigate()
 
     return (
       <>
@@ -21,9 +23,9 @@ const SingleBook = ({handleSelected,book,selected}) => {
               {book.title}
              
             </Card.Title>
-            <Link to={'/bookdetails/'+book.asin}>
-            <Button>see details</Button>
-            </Link>
+          
+            <Button onClick={() => navigate('/bookdetails/'+book.asin)}>see details</Button>
+          
           </Card.Body>
         </Card>
       </>
