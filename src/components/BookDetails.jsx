@@ -2,22 +2,17 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { useEffect, useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 import historyBooks from '../historyBooks.json'
+import CommentList from './CommentList'
 
 const BookDetails = () =>{
-
-// const userComment = {
-//     comment: string,
-//     rate: string,
-//     elementId: string,
-// }
-
-
 
 
 const params = useParams()
 console.log("params", params)
 
-let [book, setBook]=useState(null)
+const [book, setBook]=useState(null)
+
+const [comments, setComments] = useState([])
 
 useEffect( () => {
 
@@ -28,14 +23,36 @@ useEffect( () => {
 
     if(rightBookToShow){
         setBook(rightBookToShow)
+        getComments(rightBookToShow.asin)
     }else{
         Navigate('/')
     }
 
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
 },[])
 
-    
+const getComments = async (asin) => {
+  try {
+    let response = await fetch(
+      'https://striveschool-api.herokuapp.com/api/comments/' + asin,
+      {
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjQyZmRkYWRhMTNhZjAwMTUyYzFjNjEiLCJpYXQiOjE2NTA5Njk0OTAsImV4cCI6MTY1MjE3OTA5MH0.QrRgqLmGfP5kD0uhi_9E5zlAZBtJ3dziXGlXENqvi2k',
+        },
+      }
+    )
+    if (response.ok) {
+      let bookComments = await response.json()
+      setComments(bookComments)
+    } else {
+      console.log('error fetching the comments')
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 
     return(
     <Container>
@@ -59,8 +76,8 @@ useEffect( () => {
           
               <div>
                
-                <p>Comment here</p>
-                <p>comment</p>
+                <p>Comment section</p>
+                <CommentList commentsToShow={comments} />
               </div>
             
 
